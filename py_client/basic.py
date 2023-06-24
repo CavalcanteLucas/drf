@@ -11,4 +11,4 @@ get_response = requests.get(
 )
 
 print(get_response.json())
-print(get_response.status_code)
+# print(get_response.status_code)
