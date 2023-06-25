@@ -10,5 +10,7 @@ get_response = requests.get(
     json={"query": "Hello!"},
 )
 
+# print(get_response.headers)
+# print(get_response.text)
 print(get_response.json())
 # print(get_response.status_code)

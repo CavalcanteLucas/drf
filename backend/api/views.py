@@ -1,17 +1,17 @@
-from django.http import JsonResponse
+from django.forms.models import model_to_dict
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from products.models import Product
+from products.serializers import ProductSerializer
 
-
+@api_view(['GET'])
 def api_home(request, *args, **kwargs):
-    model_data = Product.objects.all().order_by("?").first()
+    """
+    DRF API View
+    """
+    instance = Product.objects.all().order_by("?").first()
     data = {}
-    if model_data:
-        data['id'] = model_data.id
-        data['title'] = model_data.title
-        data['content'] = model_data.content
-        data['price'] = model_data.price
-        # model instance (model_data)
-        # turn to a Python dict
-        # return JSON to my client
-    return JsonResponse(data)
+    if instance:
+        data = ProductSerializer(instance).data
+    return Response(data, headers={'content-type': 'application/json'})
